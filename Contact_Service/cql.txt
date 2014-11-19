@@ -1,0 +1,52 @@
+CREATE TABLE users (
+  username text PRIMARY KEY,
+  fname text,
+  lname text,
+  email text,
+  phone text
+);
+
+CREATE TABLE address_book (
+  username text,
+  authorized boolean,
+  contact text,
+  fname text,
+  lname text,
+  email text,
+  phone text,
+  PRIMARY KEY (username, contact)
+);
+
+insert into users (username, fname, lname, email, phone)
+	values ('taylor', 'Taylor', 'Teal', 'rtaylorteal@yahoo.com', '843-209-8982');
+ 
+insert into users (username, fname, lname, email, phone)
+	values ('emma', 'Emma', 'Stone', 'emmastone@yahoo.com', '555-555-5555');
+	
+insert into users (username, fname, lname, email, phone)
+	values ('jen', 'Jennifer', 'Lawrence', 'jen@yahoo.com', '555-555-5555');
+	
+insert into users (username, fname, lname, email, phone)
+	values ('lana', 'Lana', 'Del Rey', 'lana@yahoo.com', '555-555-5555');
+	
+insert into address_book (username, authorized, contact, fname, lname, email, phone)
+	values ('taylor', false, 'emma', 'Emma', 'Stone', 'emmastone@yahoo.com', '555-555-5555');
+	
+insert into address_book (username, authorized, contact, fname, lname, email, phone)
+	values ('emma', false, 'taylor', 'Taylor', 'Teal', 'rtaylorteal@yahoo.com', '843-209-8982');
+	
+insert into address_book (username, authorized, contact, fname, lname, email, phone)
+	values ('taylor', true, 'jen', 'Jennifer', 'Lawrence', 'jen@yahoo.com', '555-555-5555');
+	
+insert into address_book (username, authorized, contact, fname, lname, email, phone)
+	values ('jen', true, 'taylor', 'Taylor', 'Teal', 'rtaylorteal@yahoo.com', '843-209-8982');
+		
+insert into address_book (username, authorized, contact, fname, lname, email, phone)
+	values ('taylor', true, 'lana', 'Lana', 'Del Rey', 'lana@yahoo.com', '555-555-5555');
+	
+insert into address_book (username, authorized, contact, fname, lname, email, phone)
+	values ('lana', true, 'taylor', 'Taylor', 'Teal', 'rtaylorteal@yahoo.com', '843-209-8982');
+
+delete from address_book where username = 'test' and contact = 'test2';
+delete from address_book where username = 'test2' and contact = 'test';
+delete from users where username in ('test','test2','test3');

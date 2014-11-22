@@ -19,6 +19,9 @@
         <activity android:name=".views.ContactDetailActivity">
 
         </activity>
+        <activity android:name=".views.ProfileActivity">
+
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

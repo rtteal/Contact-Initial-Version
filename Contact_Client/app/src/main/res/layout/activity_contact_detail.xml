@@ -3,10 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
-    tools:context=".BoxOfficeDetailActivity" >
+    tools:context=".ContactDetailActivity" >
 
-    <!-- @drawable/large_movie_poster sourced from 
-         http://content8.flixster.com/movie/11/15/86/11158674_pro.jpg -->
     <ImageView
         android:id="@+id/ivPhoto"
         android:layout_width="wrap_content"

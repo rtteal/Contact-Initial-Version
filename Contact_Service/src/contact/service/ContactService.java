@@ -46,6 +46,15 @@ public class ContactService {
 	}
 	
 	@GET
+	@Path("/profile/{userName: \\w+}")
+	@Produces({MediaType.APPLICATION_JSON}) 
+	public Response profile(
+			@PathParam("userName") String userName) {
+		return Response.ok(ds.getUserById(userName),
+				MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
 	@Path("/incomingRequests/{userName: \\w+}")
 	@Produces({MediaType.APPLICATION_XML}) 
 	public Response incomingRequests(

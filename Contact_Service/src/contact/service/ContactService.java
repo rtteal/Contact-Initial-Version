@@ -10,6 +10,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
+import org.apache.log4j.Logger;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -31,6 +32,16 @@ public class ContactService {
 	@Context 
 	private ServletContext sctx;  // dependency injection
 	private static CassandraDS ds = new CassandraDS();
+	private Logger logger = Logger.getLogger(this.getClass());
+	
+	@POST
+	@Path("/updateProfile")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateProfile(User user){
+		String output = user.toString();
+		logger.info(output); 
+		return Response.status(200).entity(output).build();
+	}
 	
 	@GET
 	@Path("/login/{userName: \\w+}")

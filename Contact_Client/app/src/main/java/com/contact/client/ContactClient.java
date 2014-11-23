@@ -1,32 +1,37 @@
 package com.contact.client;
 
-import android.util.Log;
+import android.app.Application;
+import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.entity.StringEntity;
 
 /**
+ * Static client for communicating with backend.
  * Created by rtteal on 11/16/2014.
  */
-public class ContactClient {
-    private final String BASE_URL = "http://192.168.56.1:8080/contact/user/";
-    private AsyncHttpClient client;
+public class ContactClient extends Application {
+    private static final String BASE_URL = "http://192.168.56.1:8080/contact/user/";
+    private static final AsyncHttpClient client = new AsyncHttpClient();
+    private static Context context;
 
-    public ContactClient(){
-        client = new AsyncHttpClient();
+    public void onCreate(){
+        super.onCreate();
+        ContactClient.context = getApplicationContext();
     }
 
-    public void getContacts(JsonHttpResponseHandler handler){
-        //RequestParams params = new RequestParams("apikey", API_KEY);
-        String url = BASE_URL + "addressBook/taylor";
-        Log.d("getContacts", "creating connection to: " + url);
-        client.get(url, handler);
+    public static void get(String url, RequestParams params, AsyncHttpResponseHandler handler){
+        client.get(getAbsoluteUrl(url), params, handler);
     }
 
-    public void getProfile(JsonHttpResponseHandler handler){
-        //RequestParams params = new RequestParams("apikey", API_KEY);
-        String url = BASE_URL + "profile/taylor";
-        Log.d("getProfile", "creating connection to: " + url);
-        client.get(url, handler);
+    public static void post(String url, StringEntity params, AsyncHttpResponseHandler handler){
+        client.post(context, getAbsoluteUrl(url), params, "application/json", handler);
+    }
+
+    private static String getAbsoluteUrl(String url){
+        return BASE_URL + url;
     }
 }

@@ -23,20 +23,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
+ * Main activity for the Contact app.  This view shows the user's address book,
+ * generates the <code>onClickListener</code> for when the user selects one of the
+ * contacts.  It also produces the menu view with options for the user to view or
+ *
  * Created by rtteal on 11/16/2014.
  */
 public class ContactActivity extends Activity {
     private ListView lvContacts;
     private ContactAdapter contactAdapter;
-    private ContactClient client;
     private Contact profile;
     public static final String CONTACT_KEY = "contact";
     public static final String PROFILE_KEY = "profile";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);//Menu Resource, Menu
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -48,6 +50,10 @@ public class ContactActivity extends Activity {
                 i.putExtra(PROFILE_KEY, profile);
                 startActivity(i);
                 break;
+            case R.id.item2:
+                i = new Intent(ContactActivity.this, EditProfileActivity.class);
+                startActivity(i);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -55,12 +61,9 @@ public class ContactActivity extends Activity {
     }
 
     private void fetchProfile(){
-        if (client == null)
-            client = new ContactClient();
-        client.getProfile(new JsonHttpResponseHandler() {
+        ContactClient.get("profile/taylor", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int code, JSONObject body) {
-                Log.d("fetchProfile.onSuccess: ", "starting onSuccess: " + body);
                 profile = Contact.fromJson(body);
                 Log.d("fetchProfile.onSuccess: ", "profile: " + profile);
             }
@@ -68,44 +71,33 @@ public class ContactActivity extends Activity {
             @Override
             public void onFailure(Throwable e, JSONObject errorResponse) {
                 super.onFailure(e, errorResponse);
-                Log.d("fetchProfile.onFailure: ", "error reaching endpoint", e);
+                Log.e("fetchProfile.onFailure: ", "error reaching endpoint", e);
             }
         });
     }
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-
         lvContacts = (ListView) findViewById(R.id.lvContacts);
         ArrayList<Contact> contactList = new ArrayList<Contact>();
         contactAdapter = new ContactAdapter(this, contactList);
         lvContacts.setAdapter(contactAdapter);
-        Log.d("debug", "prefetch");
         fetchContacts();
-        Log.d("debug", "postfetch");
         setupContactSelectedListener();
-        Log.d("onCreate", "post setupContactSelectedListener");
         fetchProfile();
-        Log.d("debug", "postSetup");
     }
 
     private void fetchContacts() {
-        if (client == null)
-            client = new ContactClient();
-        client.getContacts(new JsonHttpResponseHandler() {
+        ContactClient.get("addressBook/taylor", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int code, JSONObject body) {
-                JSONArray items = null;
                 try {
-                    Log.d("debug: ", "starting onSuccess: ");
-                    items = body.getJSONArray("contacts");
-                    Log.d("debug: ", "items: " + items);
+                    JSONArray items = body.getJSONArray("contacts");
                     ArrayList<Contact> contacts = Contact.fromJson(items);
                     for (Contact contact : contacts) {
                         contactAdapter.add(contact);
-                        Log.d("debug: ", "" + contact);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -115,7 +107,7 @@ public class ContactActivity extends Activity {
             @Override
             public void onFailure(Throwable e, JSONObject errorResponse) {
                 super.onFailure(e, errorResponse);
-                Log.d("onFailure: ", "error reaching endpoint", e);
+                Log.e("onFailure: ", "error reaching endpoint", e);
             }
         });
     }

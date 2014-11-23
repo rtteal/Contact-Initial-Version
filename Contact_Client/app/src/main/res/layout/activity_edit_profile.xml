@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/edit_profile">
+
+    <ImageView
+        android:id="@+id/ivPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:maxHeight="160dp"
+        android:maxWidth="100dp"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/images" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/first_name"
+        android:id="@+id/tvFName"
+        android:layout_marginLeft="8dp"
+        android:textSize="26sp"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto"
+        android:layout_alignTop="@+id/ivPhoto" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/etFName"
+        android:layout_below="@+id/tvFName"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/last_name"
+        android:id="@+id/tvLName"
+        android:layout_marginLeft="8dp"
+        android:textSize="26sp"
+        android:layout_below="@+id/etFName"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/etLName"
+        android:layout_below="@+id/tvLName"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/phone"
+        android:id="@+id/tvPhone"
+        android:layout_marginLeft="8dp"
+        android:textSize="26sp"
+        android:layout_below="@+id/etLName"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/etPhone"
+        android:layout_below="@+id/tvPhone"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:id="@+id/tvEmail"
+        android:layout_marginLeft="8dp"
+        android:textSize="26sp"
+        android:layout_below="@+id/etPhone"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/etEmail"
+        android:layout_below="@+id/tvEmail"
+        android:layout_toRightOf="@+id/ivPhoto"
+        android:layout_toEndOf="@+id/ivPhoto" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:id="@+id/btSubmitProfile"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:singleLine="true" />
+
+</RelativeLayout>

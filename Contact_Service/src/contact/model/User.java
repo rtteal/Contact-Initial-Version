@@ -5,22 +5,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author rtteal
- * Immutable class for modeling a user
- * Thread safe
  */
 @XmlRootElement(name = "user")
 public class User implements Comparable<User> {
-	public final String userName, fName, lName, email, tel, image;
+	public String userName, fName, lName, email, tel, image;
 	
-	// required by jetty
 	public User() {
-		//throw new IllegalStateException("User's no-arg constructor should not be called.");
-		this.userName = "";
-		this.fName = "";
-		this.lName = "";
-		this.email = "";
-		this.tel = ""; 
-		this.image = "";
 		
 	}
 
@@ -38,7 +28,7 @@ public class User implements Comparable<User> {
 		this.image = image;
 	}
 	
-	/*@XmlElement
+	@XmlElement
 	public String getUserName() {
 		return userName;
 	}
@@ -61,7 +51,35 @@ public class User implements Comparable<User> {
 	@XmlElement
 	public String getTel() {
 		return tel; 
-	} */
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public void setlName(String lName) {
+		this.lName = lName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 
 	@Override
 	public int compareTo(User other) {

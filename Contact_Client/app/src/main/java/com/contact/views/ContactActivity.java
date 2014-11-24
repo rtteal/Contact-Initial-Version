@@ -45,13 +45,17 @@ public class ContactActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.item1:
+            case R.id.view_profile:
                 Intent i = new Intent(ContactActivity.this, ProfileActivity.class);
                 i.putExtra(PROFILE_KEY, profile);
                 startActivity(i);
                 break;
-            case R.id.item2:
+            case R.id.edit_profile:
                 i = new Intent(ContactActivity.this, EditProfileActivity.class);
+                startActivity(i);
+                break;
+            case R.id.requests:
+                i = new Intent(ContactActivity.this, RequestsActivity.class);
                 startActivity(i);
                 break;
             default:

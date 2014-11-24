@@ -1,7 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".ContactActivity">
-    <item  android:id="@+id/item1"
+    <item  android:id="@+id/view_profile"
         android:title="@string/view_profile"/>
-    <item  android:id="@+id/item2"
+    <item  android:id="@+id/edit_profile"
         android:title="@string/edit_profile"/>
+    <item android:id="@+id/requests"
+        android:title="Requests"/>
 </menu>

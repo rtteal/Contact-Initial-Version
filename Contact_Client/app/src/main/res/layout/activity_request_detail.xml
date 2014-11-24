@@ -53,7 +53,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvEmail"
-        android:layout_margin="10dp" >
+        android:layout_margin="10dp"
+        android:id="@+id/scrollView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,5 +71,26 @@
                 android:hint="Facebook, Twitter, etc."/>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:text="@string/accept"
+            android:layout_width="0dp"
+            android:id="@+id/btAccept"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"/>
+
+        <Button
+            android:text="@string/decline"
+            android:layout_width="0dp"
+            android:id="@+id/btDecline"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"
+            android:layout_toRightOf="@+id/btAccept"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

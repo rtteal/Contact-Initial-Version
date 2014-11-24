@@ -18,14 +18,12 @@ import java.util.List;
  * Created by rtteal on 11/16/2014.
  */
 public class ContactAdapter extends ArrayAdapter<Contact> {
-
     private final Context context;
 
     public ContactAdapter(Context context, List<Contact> contacts) {
         super(context, 0, contacts);
         this.context = context;
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

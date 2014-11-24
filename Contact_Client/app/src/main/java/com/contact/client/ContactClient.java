@@ -14,7 +14,7 @@ import org.apache.http.entity.StringEntity;
  * Created by rtteal on 11/16/2014.
  */
 public class ContactClient extends Application {
-    private static final String BASE_URL = "http://192.168.56.1:8080/contact/user/";
+    private static final String BASE_URL = "http://192.168.56.1:8080/contact/";
     private static final AsyncHttpClient client = new AsyncHttpClient();
     private static Context context;
 

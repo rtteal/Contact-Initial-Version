@@ -69,7 +69,7 @@ public class RequestsActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View item, int position, long rowId) {
                 // Launch the detail view passing movie as an extra
-                Intent i = new Intent(RequestsActivity.this, ContactDetailActivity.class);
+                Intent i = new Intent(RequestsActivity.this, RequestDetailActivity.class);
                 i.putExtra(ContactActivity.CONTACT_KEY, contactAdapter.getItem(position));
                 startActivity(i);
             }

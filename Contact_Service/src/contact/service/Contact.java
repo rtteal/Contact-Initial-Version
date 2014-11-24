@@ -1,7 +1,10 @@
 package contact.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,9 +13,12 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
+
 import org.apache.log4j.Logger;
+
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -27,13 +33,19 @@ import contact.dao.CassandraDS;
 import contact.model.AddressBook;
 import contact.model.User;
 
+@ApplicationPath("/")
 @Path("/")
-public class Contact {
+public class Contact extends Application {
 	@Context 
 	private ServletContext sctx;  // dependency injection
 	private static CassandraDS ds = new CassandraDS();
 	private Logger logger = Logger.getLogger(this.getClass());
 	
+	/**
+	 * Updates the user's contact info.
+	 * @param user
+	 * @return
+	 */
 	@POST
 	@Path("/updateProfile")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -45,15 +57,15 @@ public class Contact {
 	
 	@GET
 	@Path("/login/{userName: \\w+}")
-	@Produces({MediaType.APPLICATION_XML}) 
+	@Produces({MediaType.APPLICATION_JSON}) 
 	public Response login(
 			@PathParam("userName") String userName,
 			@QueryParam("password") String password) {
-		System.out.println("pass: " + password);
+		logger.info("pass: " + password);
 		if (!"test".equals(password))
 			return Response.serverError().build();
 		return Response.ok(ds.getUserById(userName),
-				MediaType.APPLICATION_XML).build();
+				MediaType.APPLICATION_JSON).build();
 	}
 	
 	@GET
@@ -65,15 +77,23 @@ public class Contact {
 				MediaType.APPLICATION_JSON).build();
 	}
 	
+	/**
+	 * @param userName
+	 * @return The contacts wanting to connect with the user.
+	 */
 	@GET
 	@Path("/incomingRequests/{userName: \\w+}")
-	@Produces({MediaType.APPLICATION_XML}) 
+	@Produces({MediaType.APPLICATION_JSON}) 
 	public Response incomingRequests(
 			@PathParam("userName") String userName) {
 		return Response.ok(ds.getIncomingRequests(userName),
-				MediaType.APPLICATION_XML).build();
+				MediaType.APPLICATION_JSON).build();
 	}
 	
+	/**
+	 * @param userName
+	 * @return The user's contacts.
+	 */
 	@GET
 	@Path("/addressBook/{userName: \\w+}")
 	@Produces({MediaType.APPLICATION_JSON}) 
@@ -85,7 +105,7 @@ public class Contact {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/updateUser")
+	@Path("/createUser")
 	public Response create(
 			@FormParam("userName") String userName,	
 			@FormParam("fName") String fName,
@@ -147,4 +167,11 @@ public class Contact {
 		return Response.ok(ds.deleteUser(userName),
 				MediaType.TEXT_PLAIN_TYPE).build();
 	}
+	
+	@Override
+    public Set<Class<?>> getClasses() {
+	Set<Class<?>> set = new HashSet<Class<?>>();
+        set.add(Contact.class);
+        return set;
+    }
 }

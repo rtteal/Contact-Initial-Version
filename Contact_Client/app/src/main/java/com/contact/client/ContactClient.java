@@ -8,6 +8,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Static client for communicating with backend.
@@ -27,8 +32,13 @@ public class ContactClient extends Application {
         client.get(getAbsoluteUrl(url), params, handler);
     }
 
-    public static void post(String url, StringEntity params, AsyncHttpResponseHandler handler){
-        client.post(context, getAbsoluteUrl(url), params, "application/json", handler);
+    public static void post(String url, JSONObject json, AsyncHttpResponseHandler handler){
+        try {
+            StringEntity entity = new StringEntity(json.toString());
+            client.post(context, getAbsoluteUrl(url), entity, "application/json", handler);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String getAbsoluteUrl(String url){

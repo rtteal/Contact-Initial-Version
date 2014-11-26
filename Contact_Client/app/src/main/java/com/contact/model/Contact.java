@@ -55,7 +55,7 @@ public class Contact implements Serializable {
         return contacts;
     }
 
-    public StringEntity getRequestParams(){
+    public JSONObject getRequestParams(){
         // TODO figure out how to store userNmme
         JSONObject jsonParams = new JSONObject();
         try {
@@ -65,10 +65,8 @@ public class Contact implements Serializable {
             jsonParams.put("image", photo);
             jsonParams.put("tel", phone);
             jsonParams.put("email", email);
-            return new StringEntity(jsonParams.toString());
+            return jsonParams;
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return null;

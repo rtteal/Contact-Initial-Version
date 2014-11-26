@@ -16,7 +16,10 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * View for editing user's contact info.
@@ -26,7 +29,6 @@ public class EditProfileActivity extends Activity {
     private EditText etFName, etLName, etPhone, etEmail;
     private ImageView ivPhoto;
     private Button btSubmit;
-    private Contact profile;
     private Contact contact;
     public static final String PROFILE_KEY = "profile";
 
@@ -60,24 +62,28 @@ public class EditProfileActivity extends Activity {
             public void onClick(View v) {
                 updateProfile();
                 Intent i = new Intent(EditProfileActivity.this, ProfileActivity.class);
-                i.putExtra(PROFILE_KEY, profile);
+                i.putExtra(PROFILE_KEY, contact);
                 startActivity(i);
             }
         });
     }
 
     private void updateProfile(){
-        profile = new Contact();
-        profile.setfName(etFName.getText().toString());
-        profile.setlName(etLName.getText().toString());
-        profile.setPhone(etPhone.getText().toString());
-        profile.setEmail(etEmail.getText().toString());
-        profile.setPhoto(contact.getPhoto());
-        ContactClient.post("updateProfile", profile.getRequestParams(), new JsonHttpResponseHandler(){
+        contact.setfName(etFName.getText().toString());
+        contact.setlName(etLName.getText().toString());
+        contact.setPhone(etPhone.getText().toString());
+        contact.setEmail(etEmail.getText().toString());
+        contact.setPhoto(contact.getPhoto());
+        ContactClient.post("updateProfile", contact.getRequestParams(), new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int code, JSONObject body) {
+                Log.d("updateProfile", "success");
+            }
+
             @Override
             public void onFailure(Throwable e, JSONObject errorResponse) {
                 super.onFailure(e, errorResponse);
-                Log.e("post", "update profile failed", e);
+                Log.e("post, obj", "update profile failed", e);
                 // TODO generate failure message for user
             }
 

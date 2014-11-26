@@ -52,6 +52,7 @@ public class ContactActivity extends Activity {
                 break;
             case R.id.edit_profile:
                 i = new Intent(ContactActivity.this, EditProfileActivity.class);
+                i.putExtra(PROFILE_KEY, profile);
                 startActivity(i);
                 break;
             case R.id.requests:
@@ -76,6 +77,13 @@ public class ContactActivity extends Activity {
             public void onFailure(Throwable e, JSONObject errorResponse) {
                 super.onFailure(e, errorResponse);
                 Log.e("fetchProfile.onFailure: ", "error reaching endpoint", e);
+            }
+
+            @Override
+            public void onFailure(Throwable e, JSONArray errorResponse) {
+                super.onFailure(e, errorResponse);
+                Log.e("fetchProfile.onFailure", "error reaching endpoint", e);
+                // TODO generate failure message for user
             }
         });
     }

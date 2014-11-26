@@ -50,9 +50,8 @@ public class Contact extends Application {
 	@Path("/updateProfile")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateProfile(User user){
-		String output = user.toString();
-		logger.info(output); 
-		return Response.status(200).entity(output).build();
+		logger.debug(user);
+		return Response.ok().entity(user).build();
 	}
 	
 	@GET

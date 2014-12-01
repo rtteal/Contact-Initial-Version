@@ -42,7 +42,7 @@ public class RequestsActivity extends Activity {
     }
 
     private void fetchContacts() {
-        ContactClient.get("incomingRequests/taylor", null, new JsonHttpResponseHandler() {
+        ContactClient.get("incoming-requests/taylor", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int code, JSONObject body) {
                 try {

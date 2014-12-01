@@ -1,0 +1,2 @@
+update address_book set authorized = false where username = 'taylor' and contact = 'emma';
+update address_book set authorized = false where username = 'emma' and contact = 'taylor';

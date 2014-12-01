@@ -47,12 +47,30 @@ public class Contact extends Application {
 	 * @return
 	 */
 	@POST
-	@Path("/updateProfile")
+	@Path("/update-profile")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateProfile(User user){
 		logger.debug(user);
 		return Response.ok().entity(user).build();
 	}
+	
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Path("/accept-contact")
+	public Response acceptContact(AcceptContact ac) {
+		logger.debug("accept: " + 
+				ds.acceptContact(ac.userName, ac.otherUserName));
+		return Response.ok().entity(ac).build();
+	} 
+	
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Path("/decline-contact")
+	public Response declineContact(AcceptContact ac) {
+		logger.debug("decline: " + 
+				ds.declineContact(ac.userName, ac.otherUserName));
+		return Response.ok().entity(ac).build();
+	} 
 	
 	@GET
 	@Path("/login/{userName: \\w+}")
@@ -81,7 +99,7 @@ public class Contact extends Application {
 	 * @return The contacts wanting to connect with the user.
 	 */
 	@GET
-	@Path("/incomingRequests/{userName: \\w+}")
+	@Path("/incoming-requests/{userName: \\w+}")
 	@Produces({MediaType.APPLICATION_JSON}) 
 	public Response incomingRequests(
 			@PathParam("userName") String userName) {
@@ -94,7 +112,7 @@ public class Contact extends Application {
 	 * @return The user's contacts.
 	 */
 	@GET
-	@Path("/addressBook/{userName: \\w+}")
+	@Path("/address-book/{userName: \\w+}")
 	@Produces({MediaType.APPLICATION_JSON}) 
 	public Response addressBook(
 			@PathParam("userName") String userName) {
@@ -104,7 +122,7 @@ public class Contact extends Application {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/createUser")
+	@Path("/create-user")
 	public Response create(
 			@FormParam("userName") String userName,	
 			@FormParam("fName") String fName,
@@ -119,7 +137,7 @@ public class Contact extends Application {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/createAccount")
+	@Path("/create-account")
 	public Response createAccount(
 			@FormParam("userName") String userName,	
 			@FormParam("password") String password){
@@ -129,7 +147,7 @@ public class Contact extends Application {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/requestContact")
+	@Path("/request-contact")
 	public Response requestContact(
 			@FormParam("userName") String userName,
 			@FormParam("otherUserName") String otherUserName) {
@@ -140,27 +158,7 @@ public class Contact extends Application {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/acceptContact")
-	public Response acceptContact(
-			@FormParam("userName") String userName,
-			@FormParam("otherUserName") String otherUserName) {
-		return Response.ok(ds.acceptContact(userName, otherUserName),
-				MediaType.TEXT_PLAIN_TYPE).build();
-	}
-	
-	@POST
-	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/removeContact")
-	public Response removeContact(
-			@FormParam("userName") String userName,
-			@FormParam("otherUserName") String otherUserName) {
-		return Response.ok(ds.removeContact(userName, otherUserName),
-				MediaType.TEXT_PLAIN_TYPE).build();
-	}
-	
-	@POST
-	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-	@Path("/deleteUser")
+	@Path("/delete-user")
 	public Response deleteUser(
 			@FormParam("userName") String userName) {
 		return Response.ok(ds.deleteUser(userName),
@@ -173,4 +171,40 @@ public class Contact extends Application {
         set.add(Contact.class);
         return set;
     }
+	
+	public static class AcceptContact{
+		public String userName;
+		public String otherUserName;
+		
+		public AcceptContact(){
+			
+		}
+		
+		public AcceptContact(String userName, String otherUserName){
+			this.userName = userName;
+			this.otherUserName = otherUserName;
+		}
+		
+		@Override
+		public String toString(){
+			return "[userName: " + userName
+			+ ", otherUserName: " + otherUserName + "]";
+		}
+
+		public String getUserName() {
+			return userName;
+		}
+
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+
+		public String getOtherUserName() {
+			return otherUserName;
+		}
+
+		public void setOtherUserName(String otherUserName) {
+			this.otherUserName = otherUserName;
+		}
+	}
 }

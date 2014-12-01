@@ -29,8 +29,8 @@ insert into users (username, fname, lname, email, phone)
 insert into users (username, fname, lname, email, phone)
 	values ('lana', 'Lana', 'Del Rey', 'lana@yahoo.com', '555-555-5555');
 	
-insert into address_book (username, authorized, contact, fname, lname, email, phone)
-	values ('taylor', false, 'emma', 'Emma', 'Stone', 'emmastone@yahoo.com', '555-555-5555');
+insert into address_book (username, authorized, contact, fname, lname, email, phone, photo)
+	values ('taylor', false, 'emma', 'Emma', 'Stone', 'emmastone@yahoo.com', '555-555-5555', 'http://192.168.56.1:8080/photos/emma_stone.jpg');
 	
 insert into address_book (username, authorized, contact, fname, lname, email, phone)
 	values ('emma', false, 'taylor', 'Taylor', 'Teal', 'rtaylorteal@yahoo.com', '843-209-8982');

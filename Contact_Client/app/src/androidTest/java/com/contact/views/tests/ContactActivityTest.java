@@ -1,8 +1,11 @@
 package com.contact.views.tests;
 
+<<<<<<< HEAD
 import android.widget.ListView;
 
 import com.contact.R;
+=======
+>>>>>>> origin/master
 import com.contact.views.ContactActivity;
 
 import org.junit.Before;
@@ -32,9 +35,12 @@ public class ContactActivityTest {
         assertNotNull(activity);
     }
 
+<<<<<<< HEAD
     @Test
     public void contactSelected() throws Exception {
         ListView lvContacts = (ListView) activity.findViewById(R.id.lvContacts);
     }
 
+=======
+>>>>>>> origin/master
 }

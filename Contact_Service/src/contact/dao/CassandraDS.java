@@ -46,7 +46,7 @@ public class CassandraDS {
 			"SELECT * FROM users where username = ? ;");
 
 	private static final PreparedStatement acceptRequest = session.prepare(
-			"update address_book set authorized = false "
+			"update address_book set authorized = true "
 					+ "where username = ? and contact = ?;");
 
 	private static final PreparedStatement contactRequest = session.prepare(
@@ -268,7 +268,7 @@ public class CassandraDS {
 	 * @param otherUserName person losing userName's contact info
 	 * @return "Success" if the transaction completed
 	 */
-	public String removeContact(String userName, String otherUserName){
+	public String declineContact(String userName, String otherUserName){
 		if (userName.length() == 0 || otherUserName.length() == 0)
 			throw new IllegalArgumentException();
 

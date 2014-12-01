@@ -2,6 +2,7 @@ package com.contact.client;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,9 +24,11 @@ public class ContactClient extends Application {
     private static final AsyncHttpClient client = new AsyncHttpClient();
     private static Context context;
 
+    @Override
     public void onCreate(){
         super.onCreate();
         ContactClient.context = getApplicationContext();
+        client.setTimeout(10000);
     }
 
     public static void get(String url, RequestParams params, AsyncHttpResponseHandler handler){

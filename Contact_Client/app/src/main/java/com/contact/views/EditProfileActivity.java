@@ -74,10 +74,10 @@ public class EditProfileActivity extends Activity {
         contact.setPhone(etPhone.getText().toString());
         contact.setEmail(etEmail.getText().toString());
         contact.setPhoto(contact.getPhoto());
-        ContactClient.post("updateProfile", contact.getRequestParams(), new JsonHttpResponseHandler(){
+        ContactClient.post("update-profile", contact.getRequestParams(), new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int code, JSONObject body) {
-                Log.d("updateProfile", "success");
+                Log.d("update-profile", "success");
             }
 
             @Override

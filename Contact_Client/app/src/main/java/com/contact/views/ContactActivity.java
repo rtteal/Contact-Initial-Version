@@ -37,6 +37,19 @@ public class ContactActivity extends Activity {
     public static final String PROFILE_KEY = "profile";
 
     @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contact);
+        lvContacts = (ListView) findViewById(R.id.lvContacts);
+        ArrayList<Contact> contactList = new ArrayList<Contact>();
+        contactAdapter = new ContactAdapter(this, contactList);
+        lvContacts.setAdapter(contactAdapter);
+        fetchContacts();
+        setupContactSelectedListener();
+        fetchProfile();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -88,21 +101,8 @@ public class ContactActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
-        lvContacts = (ListView) findViewById(R.id.lvContacts);
-        ArrayList<Contact> contactList = new ArrayList<Contact>();
-        contactAdapter = new ContactAdapter(this, contactList);
-        lvContacts.setAdapter(contactAdapter);
-        fetchContacts();
-        setupContactSelectedListener();
-        fetchProfile();
-    }
-
     private void fetchContacts() {
-        ContactClient.get("addressBook/taylor", null, new JsonHttpResponseHandler() {
+        ContactClient.get("address-book/taylor", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int code, JSONObject body) {
                 try {
@@ -128,7 +128,6 @@ public class ContactActivity extends Activity {
         lvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View item, int position, long rowId) {
-                // Launch the detail view passing movie as an extra
                 Intent i = new Intent(ContactActivity.this, ContactDetailActivity.class);
                 i.putExtra(CONTACT_KEY, contactAdapter.getItem(position));
                 startActivity(i);
@@ -136,4 +135,8 @@ public class ContactActivity extends Activity {
         });
     }
 
+    @Override
+    public void onDestroy(){
+
+    }
 }

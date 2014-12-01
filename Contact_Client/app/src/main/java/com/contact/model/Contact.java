@@ -17,7 +17,7 @@ import org.json.JSONObject;
  */
 public class Contact implements Serializable {
     private static final long serialVersionUID = -8959832007991513854L;
-    private String fName, lName, phone, email, photo;
+    private String userName, fName, lName, phone, email, photo;
 
     public Contact(){}
 
@@ -25,7 +25,7 @@ public class Contact implements Serializable {
         Log.d("debug", "creating contact...");
         Contact c = new Contact();
         try {
-
+            c.userName = jsonObject.getString("userName");
             c.fName = jsonObject.getString("fName");
             c.lName = jsonObject.getString("lName");
             c.photo = jsonObject.getString("image");
@@ -56,10 +56,9 @@ public class Contact implements Serializable {
     }
 
     public JSONObject getRequestParams(){
-        // TODO figure out how to store userNmme
         JSONObject jsonParams = new JSONObject();
         try {
-            jsonParams.put("userName", "taylor");
+            jsonParams.put("userName", userName);
             jsonParams.put("fName", fName);
             jsonParams.put("lName", lName);
             jsonParams.put("image", photo);
@@ -108,9 +107,18 @@ public class Contact implements Serializable {
         this.photo = photo;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString(){
-        return "[fName: " + fName
+        return "[userName: " + userName
+                + ", fName: " + fName
                 + ", lName: " + lName
                 + ", phone: " + phone
                 + ", email: " + email

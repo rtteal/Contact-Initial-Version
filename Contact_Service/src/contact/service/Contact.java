@@ -145,15 +145,17 @@ public class Contact extends Application {
 				MediaType.TEXT_PLAIN_TYPE).build();
 	}
 	
+	/**
+	 * @param userName
+	 * @return The contacts wanting to connect with the user.
+	 */
 	@POST
-	@Consumes({MediaType.APPLICATION_FORM_URLENCODED})
 	@Path("/request-contact")
-	public Response requestContact(
-			@FormParam("userName") String userName,
-			@FormParam("otherUserName") String otherUserName) {
-		return Response.ok(String.valueOf(ds.requestContact(userName,
-				otherUserName)),
-				MediaType.TEXT_PLAIN_TYPE).build();
+	@Consumes({MediaType.APPLICATION_JSON}) 
+	public Response requestContact(AcceptContact ac) {
+		return Response.ok(ds.requestContact(ac.userName,
+				ac.otherUserName),
+				MediaType.APPLICATION_JSON).build();
 	}
 	
 	@POST

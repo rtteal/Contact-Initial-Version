@@ -72,6 +72,10 @@ public class ContactActivity extends Activity {
                 i = new Intent(ContactActivity.this, RequestsActivity.class);
                 startActivity(i);
                 break;
+            case R.id.search:
+                i = new Intent(ContactActivity.this, SearchActivity.class);
+                startActivity(i);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -137,6 +141,6 @@ public class ContactActivity extends Activity {
 
     @Override
     public void onDestroy(){
-
+        super.onDestroy();
     }
 }

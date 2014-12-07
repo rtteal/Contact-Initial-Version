@@ -13,5 +13,6 @@
     <string name="submit">Submit</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="search">Search</string>
 
 </resources>

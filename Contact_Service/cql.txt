@@ -29,6 +29,9 @@ insert into users (username, fname, lname, email, phone)
 insert into users (username, fname, lname, email, phone)
 	values ('lana', 'Lana', 'Del Rey', 'lana@yahoo.com', '555-555-5555');
 	
+insert into users (username, fname, lname, email, phone)
+	values ('ed', 'Edward', 'Norton', 'ed@yahoo.com', '555-555-5555');
+	
 insert into address_book (username, authorized, contact, fname, lname, email, phone, photo)
 	values ('taylor', false, 'emma', 'Emma', 'Stone', 'emmastone@yahoo.com', '555-555-5555', 'http://192.168.56.1:8080/photos/emma_stone.jpg');
 	
@@ -50,3 +53,7 @@ insert into address_book (username, authorized, contact, fname, lname, email, ph
 delete from address_book where username = 'test' and contact = 'test2';
 delete from address_book where username = 'test2' and contact = 'test';
 delete from users where username in ('test','test2','test3');
+
+update address_book
+set photo = 'http://192.168.56.1:8080/photos/edward_norton.jpg'
+where username = 'taylor' and contact = 'ed';
